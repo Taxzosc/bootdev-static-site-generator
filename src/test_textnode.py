@@ -26,6 +26,12 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a type test", TextType.BOLD)
         node2 = TextNode("This is a type test", TextType.ITALIC)
         self.assertNotEqual(node, node2)
-
+    
+    def test_url_none_eq(self):
+        node = TextNode("some text", TextType.BOLD)
+        node2 = TextNode("some text", TextType.BOLD, None)
+        self.assertEqual(node, node2)
+     #copied from boots ai learning tool after asking about missing tests.
+     #"a nice to have rather than a genuine gap", since the init is default to None
 if __name__ == "__main__":
     unittest.main()
