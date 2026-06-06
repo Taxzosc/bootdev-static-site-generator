@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode,LeafNode
 
 class TestHTMLNode(unittest.TestCase):
     prop_dict = {
@@ -49,3 +49,23 @@ class TestHTMLNode(unittest.TestCase):
     def test_repr(self): #added after seeing solution to see what i am missing. i understand the unittest better now
         node = HTMLNode("a","hello world", None, {"memes": "dreams"})
         self.assertEqual(node.__repr__(), "HTMLNode(a, hello world, children: None, {'memes': 'dreams'})")
+
+    
+class TestLeafNode(unittest.TestCase):
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(),"<p>Hello, world!</p>")
+    
+    def test_leaf_props_to_html(self):
+        node = LeafNode("a", "Click me!",{"href":"https://www.google.com"})
+        self.assertEqual(node.to_html(),'<a href="https://www.google.com">Click me!</a>')
+
+    #added after seeing solution but no copy
+    def test_leaf_no_tag(self):
+        node = LeafNode(None,"Click me!")
+        self.assertEqual(node.to_html(),"Click me!")
+    
+    # def test_leaf_valueerror(self):
+    #     node = LeafNode("a",None)
+    #     self.assertEqual(node.to_html(), "No value, leaf node must have a value")
+    #test not needed as it ends the program
