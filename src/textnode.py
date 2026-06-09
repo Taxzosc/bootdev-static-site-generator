@@ -1,7 +1,8 @@
 from enum import Enum
+from htmlnode import LeafNode
 
 class TextType(Enum):
-    PLAIN = "plain"
+    TEXT = "text"  #swapped from plain to text, to be more in line with the assignments notes
     BOLD = "bold"
     ITALIC = "italic"
     CODE = "code"
@@ -21,3 +22,19 @@ class TextNode():
                     
     def __repr__(self) -> str:
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
+
+def text_node_to_html_node(text_node: TextNode) -> LeafNode:
+    if text_node.text_type not in TextType:
+        raise Exception("This is not a valid Text Type")
+    if text_node.text_type.value == "text":
+        return LeafNode(None, f"{text_node.text}")
+    if text_node.text_type.value == "bold":
+        return LeafNode("b", f"{text_node.text}")
+    if text_node.text_type.value == "italic":
+        return LeafNode("i", f"{text_node.text}")
+    if text_node.text_type.value == "code":
+        return LeafNode("code", f"{text_node.text}")
+    if text_node.text_type.value == "link":
+        return LeafNode("a", f"{text_node.text}", {"href":f"{text_node.url}"})
+    if text_node.text_type.value == "image":
+        return LeafNode("img", "", {"src":f"{text_node.url}", "alt": text_node.text})
