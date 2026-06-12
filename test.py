@@ -8,5 +8,6 @@
 # print(newstring)
 
 #This is a test
-string  = "This is text with a `code block` word, and more `code text` to check, `codeblock``anotherblock`"
+string  = "This is text with a `code block` word"
 print(string.split("`"))
+# print(0%2)

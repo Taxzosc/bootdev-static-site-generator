@@ -8,7 +8,7 @@ new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
 
 
 result:
-[
+new_nodes = [
     TextNode("This is text with a ", TextType.TEXT),
     TextNode("code block", TextType.CODE),
     TextNode(" word", TextType.TEXT),
@@ -19,6 +19,5 @@ if given delimiter is not found, raise an error (valueerror?)
 saying valid deliimiter not found
 
 split the text at the delimiter. text.split(delimiter).
-from my tests it seems like when .split is used, whatever is used as a delimiter,
-is always the 2nd item in the list, always even. or rather, in the odd index. [text, delimited word, text, delmited word, text]
+from my tests it seems like when .split is used, whatever is used as a delimiter, is always the 2nd item in the list, always even. or rather, in the odd index. [text, delimited word, text, delmited word, text]
 even if the delimited word is first or last there will  be text at the front and the end of the list, in the form of '',
