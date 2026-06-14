@@ -28,5 +28,6 @@ def split_nodes_delimiter(
                 if index % 2 == 0: #if index is even, it must be text, extend text tot list as new node, loop back to top
                     new_text.append(TextNode(i,TextType.TEXT))
                 index += 1
+                #note the solution has a bit shorter code solution for this. this still works
     print(new_text)
     return new_text
