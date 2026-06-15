@@ -1,3 +1,4 @@
+import re
 from textnode import TextNode, TextType
 
 def split_nodes_delimiter(
@@ -29,5 +30,15 @@ def split_nodes_delimiter(
                     new_text.append(TextNode(i,TextType.TEXT))
                 index += 1
                 #note the solution has a bit shorter code solution for this. this still works
-    print(new_text)
     return new_text
+
+
+
+
+def extract_markdown_images(text: str) -> list[tuple[str,str]]:
+    return re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)",text) #old \[(.*?)\]\((.*?)\)
+#i was confused on why the solution regex was so different from mine, since mine works, but mine "finds markdown-style things" while solution finds images and links spesifically.
+#im not going to copy the solution, and rather find the correct regex myself.
+#update didnt figure it out myself, but went through the given in tips to learn how it works.
+def extract_markdown_links(text: str) -> list[tuple[str,str]]:
+    return re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)",text)#old \[(.*?)\]\((.*?)\)
