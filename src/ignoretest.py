@@ -36,8 +36,8 @@ from inline_markdown import extract_markdown_images, extract_markdown_links
 # split_text = re.split(r"(?<!!)\[([^\[\]]*\]\([^\(\)]*)\)", text)
 # print(split_text) #output ['This is text with a link ', 'to boot dev](https://www.boot.dev', ' text']
 
-textimage = "![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
-split_text = re.split(r"!\[([^\[\]]*\]\([^\(\)]*)\)", textimage)
-images_urls = extract_markdown_images(textimage)
-print(images_urls)
-print(split_text)
+textimage = "![obi wan](https://i.imgur.com/fJRm4Vk.jpeg) test this ![mobi](https://i.pimgur.com/fJRm4Vk.jpeg)"
+images = extract_markdown_images(textimage)
+for image in images:
+    split_text = textimage.split(f"![{image[0]}]({image[1]})",1)
+    print(split_text)
