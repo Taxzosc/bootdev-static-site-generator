@@ -90,9 +90,53 @@ def extract_markdown_links(text: str) -> list[tuple[str,str]]:
 #  its: what happends if the link/imagelink contains elements that interfer with the lookup. like an early ) or somethign else
 # i will now rewrite my solutions while knowing of the split given in the tips.
 # 
-
+#  sections = original_text.split(f"![{image_alt}]({image_link})", 1)
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
-    pass
+    node_list = []
+    for node in old_nodes:
+        original_text = node.text
+        if node.text_type != TextType.TEXT:
+            node_list.append(node)
+            continue
+        
+        images = extract_markdown_images(original_text)
+        if len(images) == 0:
+            node_list.append(node)
+            continue
+        for image in images:
+            sections = original_text.split(f"![{image[0]}]({image[1]})", 1)
+            if len(sections) != 2:
+                raise ValueError("not valid markdown, something wrong the closing on images.")
+            original_text = sections[1]
+            if sections[0] != "":
+                node_list.append(TextNode(sections[0], TextType.TEXT))
+            node_list.append(TextNode(image[0], TextType.IMAGE, image[1]))
+        if original_text != "":
+            node_list.append(TextNode(original_text, TextType.TEXT))
+    return node_list
+            
+
 
 def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
-    print("123")
+    node_list = []
+    for node in old_nodes:
+        original_text = node.text
+        if node.text_type != TextType.TEXT:
+            node_list.append(node)
+            continue
+        
+        links = extract_markdown_links(original_text)
+        if len(links) == 0:
+            node_list.append(node)
+            continue
+        for link in links:
+            sections = original_text.split(f"[{link[0]}]({link[1]})", 1)
+            if len(sections) != 2:
+                raise ValueError("not valid markdown, something wrong the closing on links.")
+            original_text = sections[1]
+            if sections[0] != "":
+                node_list.append(TextNode(sections[0], TextType.TEXT))
+            node_list.append(TextNode(link[0], TextType.LINK, link[1]))
+        if original_text != "":
+            node_list.append(TextNode(original_text, TextType.TEXT))
+    return node_list
