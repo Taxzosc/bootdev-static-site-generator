@@ -140,3 +140,6 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
         if original_text != "":
             node_list.append(TextNode(original_text, TextType.TEXT))
     return node_list
+
+def text_to_textnodes(text):
+    pass

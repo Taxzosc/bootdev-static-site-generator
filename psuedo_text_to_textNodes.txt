@@ -1,0 +1,6 @@
+i will try to write psuedocode for text_to_textNodes
+i now have 3 functions. one that handles everything thats not images and links
+and two that handles images and links separately.
+split_nodes_delimiter  -> list[TextNodes](text,italic,bold,code)
+split_nodes_image  -> list[TextNodes](text,images)
+split_nodes_links  -> list[TextNodes](text,links)
