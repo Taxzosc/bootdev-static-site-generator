@@ -1,5 +1,5 @@
 import unittest
-from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link
+from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link, text_to_textnodes
 from textnode import TextNode, TextType
 
 class TestSplitNodeDelimiter(unittest.TestCase):
@@ -178,3 +178,97 @@ class test_split_nodes_images_links(unittest.TestCase):
             ],
             new_nodes
         )
+
+class test_text_to_textnodes(unittest.TestCase):
+    #CRITICAL MISTAKE, i gave the text_to_textnodes a list of textnodes instead of just plain markdown. correcting.
+    def test_text_to_textnodes(self):
+        # node = TextNode(  #example of mistake, will remove in below code
+        #     "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)",
+        #     TextType.TEXT
+        # )
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("This is ", TextType.TEXT),
+                TextNode("text", TextType.BOLD),
+                TextNode(" with an ",TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+                TextNode(" word and a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ],
+            new_nodes
+        )
+
+    def test_text_to_textnodes_link_first(self):
+        text = "This is a [link](https://boot.dev) with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a bold **text**"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("This is a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+                TextNode(" with an ",TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+                TextNode(" word and a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and a bold ", TextType.TEXT),
+                TextNode("text", TextType.BOLD),
+            ],
+            new_nodes
+        )
+
+    def test_text_to_textnodes_multiples(self):
+        text = "This is **text** with more **bold text** and an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("This is ", TextType.TEXT),
+                TextNode("text", TextType.BOLD),
+                TextNode(" with more ", TextType.TEXT),
+                TextNode("bold text", TextType.BOLD),
+                TextNode(" and an ",TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+                TextNode(" word and a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ],
+            new_nodes
+        )
+
+    def test_text_to_textnodes_no_bold_italic(self):
+        text = "This is a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("This is a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ],
+            new_nodes
+        )
+   
+    def test_text_to_textnodes_only_link_images(self):
+        text = "![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg)[link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ],
+            new_nodes
+        )
+    #i made a serious error, the text_to_textnodes does not take a list of textnodes, just text, so
+    # i wrote my whole function around a list of textnodes, instead of just plain text. easy enough fix, but a bad mistake had i not verified
+    #with the solution. not sure how it would have functioned had i let it be

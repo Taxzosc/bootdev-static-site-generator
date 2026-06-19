@@ -142,4 +142,11 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
     return node_list
 
 def text_to_textnodes(text):
-    pass
+    nodes = [TextNode(text, TextType.TEXT)]
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
+#CRITICAL ERROR, i made my tests where whats given to the function is a textnode, instead of text. in the solution 

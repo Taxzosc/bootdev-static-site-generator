@@ -4,3 +4,16 @@ and two that handles images and links separately.
 split_nodes_delimiter  -> list[TextNodes](text,italic,bold,code)
 split_nodes_image  -> list[TextNodes](text,images)
 split_nodes_links  -> list[TextNodes](text,links)
+
+example string: This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)
+if i just chain my three functions this spesific string will return correctly.. but if i were to swap the markdown points around it should not.
+wrong.
+psuedocode:
+we start with a list of textnode with text, texttype text. wrong!
+we start with a string of text, with maybe markdown stuff in it.
+create a list of a textnode containing the text and texttype.text
+call split_nodes_delimiter once for each delimiter(bold italic code),
+call split_nodes_image, and split_nodes_links.
+all of these return a list of textnodes.
+this list of textnodes should every time you call a function, it should "reuse" the same variable name for the original text. so text = split_nodes_delimiter(text)
+return the list of textnodes at the end.
