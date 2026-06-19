@@ -52,16 +52,41 @@ from textnode import TextNode,TextType
 #     new_list.append(textimage)
 # print(f"new list is {new_list}")
 
-text = [TextNode("![bobi wan image](htrtps://i.imgur.com/fJRm4Vk.jpeg) This is _text_ with an **bold** word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", TextType.TEXT)]
+# text = [TextNode("![bobi wan image](htrtps://i.imgur.com/fJRm4Vk.jpeg) This is _text_ with an **bold** word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", TextType.TEXT)]
+# newlist = []
+# text = split_nodes_delimiter(text, "**",TextType.BOLD)
+# print(len(text))
+# text = split_nodes_delimiter(text, "_", TextType.ITALIC)
+# print(len(text))
+# text = split_nodes_delimiter(text, "`", TextType.CODE)
+# print(len(text))
+# text = split_nodes_image(text)
+# print(len(text))
+# text = split_nodes_link(text)
+# print(len(text))
+# print(text)
+
+text = """
+  This is **bolded** paragraph
+
+
+  
+
+ This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line  
+
+ 
+- This is a list
+- with items
+"""
+
+markdowntext = text.split("\n\n")
+print(markdowntext)
 newlist = []
-text = split_nodes_delimiter(text, "**",TextType.BOLD)
-print(len(text))
-text = split_nodes_delimiter(text, "_", TextType.ITALIC)
-print(len(text))
-text = split_nodes_delimiter(text, "`", TextType.CODE)
-print(len(text))
-text = split_nodes_image(text)
-print(len(text))
-text = split_nodes_link(text)
-print(len(text))
-print(text)
+for i in markdowntext:
+    if i == "":
+        continue
+    newlist.append(i.strip())
+
+# print(newlist)
+    
