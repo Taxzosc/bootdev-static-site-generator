@@ -66,27 +66,29 @@ from textnode import TextNode,TextType
 # print(len(text))
 # print(text)
 
-text = """
-  This is **bolded** paragraph
+# text = """
+#   This is **bolded** paragraph
 
 
   
 
- This is another paragraph with _italic_ text and `code` here
-This is the same paragraph on a new line  
+#  This is another paragraph with _italic_ text and `code` here
+# This is the same paragraph on a new line  
 
  
-- This is a list
-- with items
-"""
+# - This is a list
+# - with items
+# """
 
-markdowntext = text.split("\n\n")
-print(markdowntext)
-newlist = []
-for i in markdowntext:
-    if i == "":
-        continue
-    newlist.append(i.strip())
+# markdowntext = text.split("\n\n")
+# print(markdowntext)
+# newlist = []
+# for i in markdowntext:
+#     if i == "":
+#         continue
+#     newlist.append(i.strip())
 
-# print(newlist)
-    
+# # print(newlist)
+
+text = "``` headingstuffs```"
+print(text[0:2])
