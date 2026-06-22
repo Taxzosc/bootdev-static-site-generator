@@ -90,5 +90,33 @@ from textnode import TextNode,TextType
 
 # # print(newlist)
 
-text = "``` headingstuffs```"
-print(text[0:2])
+# block = """
+# 1. first
+# 2. second
+# 3. third
+# 4. fourth
+# 5. fifth
+# 6. sixth
+# 7. seventh
+# 8. eighth
+# 9. nineth
+# 10. tenth
+# """
+# def check_valid_ordered_list(text):
+#     newblock = block.strip()
+#     splitblock = newblock.split("\n")
+#     count = 1
+#     for slab in splitblock:
+#         if not slab.startswith(f"{count}. "):
+#             return False
+#         count += 1
+#     return True
+# is_valid = check_valid_ordered_list(block)
+# if is_valid:
+#     print("ordered list")
+# else:
+#     print("do nothing, let the next if statement check")
+count = "#"
+for i in range(0,10):
+    print(count)
+    count += "#"
