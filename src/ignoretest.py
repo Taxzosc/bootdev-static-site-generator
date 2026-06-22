@@ -1,6 +1,7 @@
 import re
 from inline_markdown import extract_markdown_images, extract_markdown_links,split_nodes_delimiter,split_nodes_image,split_nodes_link
 from textnode import TextNode,TextType
+from block_markdown import *
 # testhis = {
 # "href": "https://www.google.com",
 # "target": "_blank",
@@ -116,7 +117,14 @@ from textnode import TextNode,TextType
 #     print("ordered list")
 # else:
 #     print("do nothing, let the next if statement check")
-count = "#"
-for i in range(0,10):
-    print(count)
-    count += "#"
+# count = "#"
+# for i in range(0,10):
+#     print(count)
+#     count += "#"
+# markdown = """```
+# this is a code block
+# ```"""
+# newlist = markdown_to_blocks(markdown)
+# print(newlist)
+text = "#### "
+print(text[0:2])
