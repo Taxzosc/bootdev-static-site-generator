@@ -1,0 +1,41 @@
+just writing thoughts of how this shit is functioning
+"based on thEtype of block, create a new htmlnode with the proper data"
+what is the proper data for a block. if its a parent node it needs no tags, but how do i figure out if its a parent node..
+if i split up a markdown block at all double newlines(markdown to blocks), what do i have there? i have a list of blocks.
+i can then assign what is in those blocks with the block to blocktype function.
+these would be just straight htmlnodes with the proper data. this will only be the block markdown, not inline. inline can be inside all of the blocks
+so the block element can contain inline elements. it affects visuals mostly. like bullet points, or ordered list, quote and code all makes different
+visuals in html.
+so with the current block in the loop, i need to find the type of block, block to blocktype.
+save that in a variable, then run it through a function to find if it has child elements, which all will have, which means this is a parent node.
+even code which can only contain a text file, is a parent node. so it needs to be a parentnode(blocktoblocktype(), children, and if it has props?)
+thats the result.
+
+so we find the blocktype, save to variable. the block type only matters to how it will look like.
+then we make if statements, if blocktype==code, paragraph, orderedlist etc.
+find what kind of children is inside of the text. except if its code block. it should  be a textnode.
+create a helperfunction to find the children?
+parent_node = prentnode(tag, children in the form of a function(blocktext),props?)
+then after all that, return parentnode(div,parent_node)
+
+im not sure about the props thing... if given it will be used i guess?
+props is taken care of if there is props, as we will call to_html on leafnodes anyways, which is where props come in if there is any.
+
+for the helper function for finding what children is in the block. some blocks can have block children in it. atleast in regular markdown, maybe not
+in this simplified one.. im going to assume not. asked boots! not in scope. maybe ill try to write that later when im done.
+
+helper function. it needs to take the text and return a list of htmlnodes for all the inline markdown.
+i can use the text_to_textNodes to make a list of inline textnodes. then i can loop over all those with the .to_html function.
+but i do think i need to remove whichever header,code,list symbol before i run this helperfunction. which means i need to STRIP the type of header/code/whatever from the block of text?
+else the block is only "### header" instead of h1-6 header /h1-6.. i might need more helper functions to sort that out for EACH TYPE..
+
+HEADER:
+i will need a function to find out how many # are in the header, to find out which tag it should have. also to strip said block of the #.
+.strip"#" will remove all # from the beginning and end of a string. if i add a space to the # it will strip that too.
+how do i find out how many # are in the beginning of the string.
+i can use regex. extract the amount of # at the beginning of the header
+re.match(pattern, string)
+since headers only have # at the beginning, i can Lstrip("# "), save as variable, len(original) - len(new) = total -1 because of the space.
+i searched google to figure that out, which gave me ai response.
+
+I DO NOT NEED TO CONVERT TO HTML YET? YES, NOT YET.

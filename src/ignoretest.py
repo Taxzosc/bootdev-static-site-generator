@@ -126,5 +126,18 @@ from block_markdown import *
 # ```"""
 # newlist = markdown_to_blocks(markdown)
 # print(newlist)
-text = "#### "
-print(text[0:2])
+# text = "#### "
+# print(text[0:2])
+
+text = "###### headers are we###ird ###"
+# text = """```
+# this is code
+# and more code
+# ```"""
+stripped = text.lstrip("# ")
+print(stripped)
+print(text)
+count = len(text) - len(stripped) - 1
+this_typ = (stripped, count)
+print(type(this_typ))
+print(this_typ[0])

@@ -1,5 +1,7 @@
 from enum import Enum
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, ParentNode, LeafNode
+from inline_markdown import text_to_textnodes
+from textnode import text_node_to_html_node
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
@@ -37,7 +39,6 @@ def helper_check_valid_unordered_list(text: str) -> bool:
             return False
     return True
 
-
 def helper_check_valid_ordered_list(text: str) -> bool:
     block = text.strip()
     split_block = block.split("\n")
@@ -48,6 +49,18 @@ def helper_check_valid_ordered_list(text: str) -> bool:
         count += 1
     return True
 
+def helper_textnode_to_htmlnode_children(text: str) -> list[HTMLNode]: #takes a block, takes whatever is inside it, and turns it into htmlnodes
+    text_nodes = text_to_textnodes(text)
+    new_nodes = []
+    for node in text_nodes:
+        current = text_node_to_html_node(node)
+        new_nodes.append(current)
+    return new_nodes
+
+def helper_strip_and_count_header(text: str) -> tuple[str, int]:
+    stripped_text = text.lstrip("# ")
+    hashes_count = len(text) - len(stripped_text) -1
+    return (stripped_text, hashes_count)
 
 def markdown_to_blocks(markdown):
     split_markdown = markdown.split("\n\n")
@@ -72,7 +85,24 @@ def block_to_block_type(block: str) -> BlockType:
     return BlockType.PARAGRAPH
 
 
-def markdown_to_html_node(markdown):
+def markdown_to_html_node(markdown: str) -> HTMLNode:
+    nodes = []
     blocks = markdown_to_blocks(markdown)
+
     for block in blocks:
-        pass
+        block_type = block_to_block_type(block)
+        if block_type == BlockType.HEADING:
+            header_string_and_hash_count = helper_strip_and_count_header(block)  #tuple with string and # count.
+            text_nodes = text_to_textnodes(header_string_and_hash_count[0])
+            nodes.append(ParentNode(f"h{header_string_and_hash_count[1]}", helper_textnode_to_htmlnode_children(text_nodes)))
+        if block_type == BlockType.CODE:
+            pass
+        if block_type == BlockType.QUOTE:
+            pass
+        if block_type == BlockType.UNORDERED_LIST:
+            pass
+        if block_type == BlockType.ORDERED_LIST:
+            pass
+        if block_type == BlockType.PARAGRAPH:
+            pass
+    return ParentNode("div", nodes)
