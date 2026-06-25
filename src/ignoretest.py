@@ -1,7 +1,8 @@
 import re
 from inline_markdown import extract_markdown_images, extract_markdown_links,split_nodes_delimiter,split_nodes_image,split_nodes_link
-from textnode import TextNode,TextType
+from textnode import *
 from block_markdown import *
+from htmlnode import *
 # testhis = {
 # "href": "https://www.google.com",
 # "target": "_blank",
@@ -129,15 +130,37 @@ from block_markdown import *
 # text = "#### "
 # print(text[0:2])
 
-text = "###### headers are we###ird ###"
+# text = "###### headers are we###ird ###"
 # text = """```
 # this is code
 # and more code
 # ```"""
-stripped = text.lstrip("# ")
-print(stripped)
-print(text)
-count = len(text) - len(stripped) - 1
-this_typ = (stripped, count)
-print(type(this_typ))
-print(this_typ[0])
+# stripped = text.lstrip("# ")
+# print(stripped)
+# print(text)
+# count = len(text) - len(stripped) - 1
+# this_typ = (stripped, count)
+# print(type(this_typ))
+# print(this_typ[0])
+
+markdown = """
+- this is unordered
+- list
+- yeah this is one
+"""
+nodes = []
+# print(repr(html))
+# newtxt = text.strip("```\n")
+# print(newtxt)
+# block = "### third header"
+nodes = []
+# header_string_and_hash_count = helper_strip_and_count_header(block)  #tuple with string and # count.
+# html_node = helper_text_to_htmlnode_children(header_string_and_hash_count[0])
+# nodes.append(ParentNode(f"h{header_string_and_hash_count[1]}", html_node))
+blocks = markdown_to_blocks(markdown)
+for block in blocks:
+    nodes.append(ParentNode("ul", helper_unordered_list(markdown)))
+parent = ParentNode("div", nodes)
+# print(nodes)
+html = parent.to_html()
+print(repr(html))

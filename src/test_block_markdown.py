@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import BlockType, markdown_to_blocks, block_to_block_type
+from block_markdown import BlockType, markdown_to_blocks, block_to_block_type, markdown_to_html_node
 
 class test_markdown_to_blocks(unittest.TestCase):
     def test_markdown_to_blocks(self):
@@ -159,3 +159,100 @@ class test_block_to_blocktype(unittest.TestCase):
 """
         typeblock = block_to_block_type(ordered_list)
         self.assertEqual(typeblock, BlockType.PARAGRAPH)
+
+
+class test_markdown_to_html(unittest.TestCase):
+    def test_header(self):
+        md = "### third header"
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><h3>third header</h3></div>",
+            html
+        )
+    def test_two_headers(self):
+        md = """
+### third header
+
+##### fifth header
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><h3>third header</h3><h5>fifth header</h5></div>",
+            html
+        )
+    
+    def test_quote_block(self):
+        md = "> this is a quote block"
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><blockquote>this is a quote block</blockquote></div>",
+            html
+        )
+    
+    def test_multiline_code(self):
+        md = """
+```
+this is multiline
+code
+```
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><pre><code>this is multiline\ncode\n</code></pre></div>",
+            html
+        )
+
+    def test_paragraph(self):
+        md = """
+this is a paragraph
+with some text in it
+thats all
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(repr(html))
+        self.assertEqual(
+            "<div><p>this is a paragraph with some text in it thats all</p></div>",
+            html
+        )
+
+    def test_unordered_list(self):
+        md = """
+- this is
+- an unordered
+- list of sentences
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        print(repr(html))
+        self.assertEqual(
+            "<div><ul><li>this is</li><li>an unordered</li><li>list of sentences</li></ul></div>",
+            html
+        )
+
+    def test_full_markdown(self):
+        md = """
+### third header
+
+##### fifth header
+
+> this is a quote block
+
+> this is another quote block
+
+```
+this is a multiline
+code block
+```
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(repr(html))
+        self.assertEqual(
+            "<div><h3>third header</h3><h5>fifth header</h5><blockquote>this is a quote block</blockquote><blockquote>this is another quote block</blockquote><pre><code>this is a multiline\ncode block\n</code></pre></div>",
+            html
+        )

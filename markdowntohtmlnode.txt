@@ -39,3 +39,10 @@ since headers only have # at the beginning, i can Lstrip("# "), save as variable
 i searched google to figure that out, which gave me ai response.
 
 I DO NOT NEED TO CONVERT TO HTML YET? YES, NOT YET.
+
+for code. i need to remember, theres a difference between a code BLOCK and a code "line". ```\n code``` vs `code`.. i think. not in this project i think.
+
+for list and unordered list i need the helper function to make a list of leaf nodes with the tag "il", i think i can do this with just one function,
+as the differences between them is mostly aestethical, so the difference is in the parent node tag "ul" and "ol".
+i first need to separate the block itself into a list of "objects".. so maybe 2 different functions
+

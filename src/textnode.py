@@ -34,7 +34,7 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     if text_node.text_type == TextType.ITALIC:
         return LeafNode("i", text_node.text)    #removing the f-strings as this can cause an error if text_node.url is none, also redundant and not needed
     if text_node.text_type == TextType.CODE:
-        return LeafNode("code", text_node.text) #removing the f-strings as this can cause an error if text_node.url is none, also redundant and not needed
+        return LeafNode("code", text_node.text) #removing the f-strings as this can cause an error if text_node.url is none, also redundant and not needed  #removed .value == "text", and just made it text_type == TextType
     if text_node.text_type == TextType.LINK:
         return LeafNode("a", f"{text_node.text}", {"href":text_node.url})
     if text_node.text_type == TextType.IMAGE:
