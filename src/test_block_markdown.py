@@ -265,6 +265,14 @@ thats all
 
     def test_full_markdown(self):
         md = """
+1. this is an ordered
+2. list of sentences
+3. with some **bold** text
+
+- this is an
+- unordered list
+- of sentences with some _italic_ text
+
 ### third header
 
 ##### fifth header
@@ -289,6 +297,6 @@ a picture to ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) this guy
         # print(repr(html))
         self.maxDiff = None
         self.assertEqual(
-            """<div><h3>third header</h3><h5>fifth header</h5><blockquote>this is a quote block</blockquote><blockquote>this is another quote block that contains some <i>italic</i> text</blockquote><pre><code>this is a multiline\ncode block with some **bold** text\n</code></pre><p>this is just a straight paragraph that contains some <code>code text</code> some <b>bold</b> text, and some <i>italic</i> text, there is also a <a href="https://boot.dev">link</a> and, a picture to <img src="https://i.imgur.com/fJRm4Vk.jpeg" alt="obi wan image"></img> this guy</p></div>""",
+            """<div><ol><li>this is an ordered</li><li>list of sentences</li><li>with some <b>bold</b> text</li></ol><ul><li>this is an</li><li>unordered list</li><li>of sentences with some <i>italic</i> text</li></ul><h3>third header</h3><h5>fifth header</h5><blockquote>this is a quote block</blockquote><blockquote>this is another quote block that contains some <i>italic</i> text</blockquote><pre><code>this is a multiline\ncode block with some **bold** text\n</code></pre><p>this is just a straight paragraph that contains some <code>code text</code> some <b>bold</b> text, and some <i>italic</i> text, there is also a <a href="https://boot.dev">link</a> and, a picture to <img src="https://i.imgur.com/fJRm4Vk.jpeg" alt="obi wan image"></img> this guy</p></div>""",
             html
         )
