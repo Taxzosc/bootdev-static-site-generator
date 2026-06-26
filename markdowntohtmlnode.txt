@@ -46,3 +46,27 @@ for list and unordered list i need the helper function to make a list of leaf no
 as the differences between them is mostly aestethical, so the difference is in the parent node tag "ul" and "ol".
 i first need to separate the block itself into a list of "objects".. so maybe 2 different functions
 
+note: i might need to find a way to keep a \n at the end of the last item in the list. no i think that is handled by the html.
+
+for ordered list i need a way to split and remove the beginning number, no matter what it is. as long as the starting number is 1,
+it doesnt matter what the next numbers are. the ol tag followed by il tag takes care of the rest. the thing that makes it a ordered list,
+is the punctuation. it HAS to have the . how do i take only the stuff thats after the . ? .... theres also the newline at the end.
+so what signifies a ordered list is that the first number is always 1. actually when i test on jotbird i can start with any number followed by a .
+though in  the previous task we got the "Every line in an ordered list block must start with a number followed by a . character and a space. The number must start at 1 and increment by 1 for each line."
+which signifies that in this project, an ordered list is from 1 and up, incremented by 1 always. 
+count 1, take whatever is between 1. and the "\n", set it as a parentnode, with children as run the inline markdown check, and somehow remove this section
+from the block then count +1.. recursive?
+making a test to see what the program sees.
+
+
+quoteblocks are weird. if i write 
+"""
+> this is a quote block
+> with **two** lines
+"""
+the output of my program is
+<div><blockquote>this is a quote block\n> with two lines</blockquote></div>
+I just checked https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/blockquote
+it should be <blockquote><p></p</blockquote>? but why is my helper function not doing that..
+not in this project.
+however, the >'s at the beginning should be handled. so the result would be <div><blockquote>this is a quote block with <b>two</b> lines</blockquote></div>

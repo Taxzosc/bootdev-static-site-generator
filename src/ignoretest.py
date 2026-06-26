@@ -143,24 +143,58 @@ from htmlnode import *
 # print(type(this_typ))
 # print(this_typ[0])
 
-markdown = """
-- this is unordered
-- list
-- yeah this is one
-"""
-nodes = []
+# markdown = """
+# - this is unordered
+# - list
+# - yeah this is one
+# """
+# nodes = []
 # print(repr(html))
 # newtxt = text.strip("```\n")
 # print(newtxt)
 # block = "### third header"
+# markdown = """
+# 1. ordered
+# 2. list
+# 3. is fun
+# """
+# # split_text = markdown.split("\n")
+# # count = 1
+# # for item in split_text:
+# #     sliced_text = item[len(f"{count}. "):]
+# #     print(sliced_text)
+# nodes = []
+# # header_string_and_hash_count = helper_strip_and_count_header(block)  #tuple with string and # count.
+# # html_node = helper_text_to_htmlnode_children(header_string_and_hash_count[0])
+# # nodes.append(ParentNode(f"h{header_string_and_hash_count[1]}", html_node))
+# blocks = markdown_to_blocks(markdown)
+# for block in blocks:
+#     nodes.append(ParentNode("ol", helper_ordered_list(block)))
+
+# for block in blocks:
+#     nodes.append(ParentNode("ul", helper_unordered_list(markdown)))
+md = """
+> this is a quote
+> this **is** multiple
+"""
+blocks = markdown_to_blocks(md)
+# print(blocks)
 nodes = []
-# header_string_and_hash_count = helper_strip_and_count_header(block)  #tuple with string and # count.
-# html_node = helper_text_to_htmlnode_children(header_string_and_hash_count[0])
-# nodes.append(ParentNode(f"h{header_string_and_hash_count[1]}", html_node))
-blocks = markdown_to_blocks(markdown)
 for block in blocks:
-    nodes.append(ParentNode("ul", helper_unordered_list(markdown)))
-parent = ParentNode("div", nodes)
+    splitblock = block.split("\n")
+    strip = block.lstrip("> ")
+    new = strip.replace("> ", " ")
+    print(new.replace("\n", ""))
+    # for item in splitblock:
+    #     stripped_quote = item.lstrip("> ")
+    #     nodes.extend(helper_text_to_htmlnode_children(stripped_quote))
+
+        # i need to put the sentences together as a coherent string so i can run it through helper text to html node.
+        # nodes.append(helper_text_to_htmlnode_children(stripped_quote)) #appends list to list
+    
+
+# parent = ParentNode("div", nodes)
 # print(nodes)
-html = parent.to_html()
-print(repr(html))
+
+# html = parent.to_html()
+# print(repr(html))

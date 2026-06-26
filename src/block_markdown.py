@@ -67,8 +67,11 @@ def helper_strip_code_backtips(text:str) -> str:
     return stripped_code
 
 def helper_strip_quote(text: str) -> str:
-    stripped_quote = text.lstrip("> ")
-    return stripped_quote
+    first_quote_remove = text.lstrip("> ")
+    the_rest = first_quote_remove.replace("> "," ")
+    removed_newlines = the_rest.replace("\n","")
+    return removed_newlines
+
 
 def helper_strip_paragraph(text: str) -> str:
     paragraph_no_newlines = text.replace("\n", " ")
@@ -78,11 +81,22 @@ def helper_unordered_list(text: str) -> list["HTMLNode"]:
     split_text = text.split("- ")
     nodes = []
     for item in split_text:
-        if item == "\n":
+        if item == "":
             continue
-        print("meme")
-        nodes.append(ParentNode("li", helper_text_to_htmlnode_children(item[:-len("\n")])))
+        nodes.append(ParentNode("li", helper_text_to_htmlnode_children(item.replace("\n","")))) # [:-len("\n")] not work. last line does not have newline, but what if i need it to keep the newline..
     return nodes
+
+def helper_ordered_list(text: str) -> list["HTMLNode"]:
+    split_text = text.split("\n")
+    count = 1
+    nodes = []
+    for item in split_text:
+        sliced_text = item[len(f"{count}. "):]
+        html_nodes = helper_text_to_htmlnode_children(sliced_text)
+        nodes.append(ParentNode("li", html_nodes))
+        count += 1
+    return nodes
+
 
 def markdown_to_blocks(markdown):
     split_markdown = markdown.split("\n\n")
@@ -130,7 +144,7 @@ def markdown_to_html_node(markdown: str) -> HTMLNode:
         if block_type == BlockType.UNORDERED_LIST:
             nodes.append(ParentNode("ul", helper_unordered_list(block)))
         if block_type == BlockType.ORDERED_LIST:
-            pass
+            nodes.append(ParentNode("ol",helper_ordered_list(block)))
         if block_type == BlockType.PARAGRAPH:
             text = helper_strip_paragraph(block)
             html_node = helper_text_to_htmlnode_children(text)

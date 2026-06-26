@@ -187,11 +187,25 @@ class test_markdown_to_html(unittest.TestCase):
         md = "> this is a quote block"
         node = markdown_to_html_node(md)
         html = node.to_html()
+        # print(repr(html))
         self.assertEqual(
             "<div><blockquote>this is a quote block</blockquote></div>",
             html
         )
     
+    def test_more_lines_quote_block(self):
+        md = """
+> this is a quote block
+> with **two** lines
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(repr(html))
+        self.assertEqual(
+            "<div><blockquote>this is a quote block with <b>two</b> lines</blockquote></div>",
+            html
+        )
+
     def test_multiline_code(self):
         md = """
 ```
@@ -228,11 +242,26 @@ thats all
 """
         node = markdown_to_html_node(md)
         html = node.to_html()
-        print(repr(html))
+        # print(repr(html))
         self.assertEqual(
             "<div><ul><li>this is</li><li>an unordered</li><li>list of sentences</li></ul></div>",
             html
         )
+
+    def test_ordered_list(self):
+        md="""
+1. this is
+2. an ordered
+3. list of sentences
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(repr(html))
+        self.assertEqual(
+            "<div><ol><li>this is</li><li>an ordered</li><li>list of sentences</li></ol></div>",
+            html
+        )
+
 
     def test_full_markdown(self):
         md = """
@@ -243,16 +272,23 @@ thats all
 > this is a quote block
 
 > this is another quote block
+> that contains some _italic_ text
 
 ```
 this is a multiline
-code block
+code block with some **bold** text
 ```
+
+this is just a straight paragraph that contains some `code text` some **bold** text,
+and some _italic_ text,
+there is also a [link](https://boot.dev) and,
+a picture to ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) this guy
 """
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(repr(html))
+        self.maxDiff = None
         self.assertEqual(
-            "<div><h3>third header</h3><h5>fifth header</h5><blockquote>this is a quote block</blockquote><blockquote>this is another quote block</blockquote><pre><code>this is a multiline\ncode block\n</code></pre></div>",
+            """<div><h3>third header</h3><h5>fifth header</h5><blockquote>this is a quote block</blockquote><blockquote>this is another quote block that contains some <i>italic</i> text</blockquote><pre><code>this is a multiline\ncode block with some **bold** text\n</code></pre><p>this is just a straight paragraph that contains some <code>code text</code> some <b>bold</b> text, and some <i>italic</i> text, there is also a <a href="https://boot.dev">link</a> and, a picture to <img src="https://i.imgur.com/fJRm4Vk.jpeg" alt="obi wan image"></img> this guy</p></div>""",
             html
         )
