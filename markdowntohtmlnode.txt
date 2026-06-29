@@ -70,3 +70,7 @@ I just checked https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Eleme
 it should be <blockquote><p></p</blockquote>? but why is my helper function not doing that..
 not in this project.
 however, the >'s at the beginning should be handled. so the result would be <div><blockquote>this is a quote block with <b>two</b> lines</blockquote></div>
+
+
+I love how the solution shows me i am thinking a bit too complicated sometimes. check solution ulist vs my ulist. i could just split at newlines and slice away the - . brilliant
+its also showing me the lack of raising errors in my code.
