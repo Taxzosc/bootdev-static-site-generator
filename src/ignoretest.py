@@ -173,18 +173,18 @@ from htmlnode import *
 
 # for block in blocks:
 #     nodes.append(ParentNode("ul", helper_unordered_list(markdown)))
-md = """
-> this is a quote
-> this **is** multiple
-"""
-blocks = markdown_to_blocks(md)
-# print(blocks)
-nodes = []
-for block in blocks:
-    splitblock = block.split("\n")
-    strip = block.lstrip("> ")
-    new = strip.replace("> ", " ")
-    print(new.replace("\n", ""))
+# md = """
+# > this is a quote
+# > this **is** multiple
+# """
+# blocks = markdown_to_blocks(md)
+# # print(blocks)
+# nodes = []
+# for block in blocks:
+#     splitblock = block.split("\n")
+#     strip = block.lstrip("> ")
+#     new = strip.replace("> ", " ")
+#     print(new.replace("\n", ""))
     # for item in splitblock:
     #     stripped_quote = item.lstrip("> ")
     #     nodes.extend(helper_text_to_htmlnode_children(stripped_quote))
@@ -198,3 +198,7 @@ for block in blocks:
 
 # html = parent.to_html()
 # print(repr(html))
+
+
+this = ["meme","notmeme","lol"]
+print(" ".join(this))

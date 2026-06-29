@@ -182,7 +182,17 @@ class test_markdown_to_html(unittest.TestCase):
             "<div><h3>third header</h3><h5>fifth header</h5></div>",
             html
         )
-    
+    def test_hash_after_hashes(self):  #added after solution to cover edge case
+        md = """
+### #i like hashes
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><h3>#i like hashes</h3></div>",
+            html
+        )
+        
     def test_quote_block(self):
         md = "> this is a quote block"
         node = markdown_to_html_node(md)
@@ -203,6 +213,17 @@ class test_markdown_to_html(unittest.TestCase):
         # print(repr(html))
         self.assertEqual(
             "<div><blockquote>this is a quote block with <b>two</b> lines</blockquote></div>",
+            html
+        )
+
+    def test_quote_with_more_arrows(self): #added after the fact to cover edge
+        md = """
+> this is a > quoteblock
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            "<div><blockquote>this is a > quoteblock</blockquote></div>",
             html
         )
 
