@@ -58,19 +58,33 @@ def helper_text_to_htmlnode_children(text: str) -> list[HTMLNode]: #takes a bloc
     return new_nodes
 
 def helper_strip_and_count_header(text: str) -> tuple[str, int]:
-    stripped_text = text.lstrip("# ")
-    hashes_count = len(text) - len(stripped_text) -1
-    return (stripped_text, hashes_count)
+    level = 0
+    for char in text: #this is mostly copied from the solution, i only changed the output to be a tuple as my first solution was the same.
+        if char == "#":
+            level += 1
+        else:
+            break
+    if level + 1 >= len(text):
+        raise ValueError(f"invalid heading level: {level}")
+    text_and_hash_count = (text[level + 1 :], level)
+    # stripped_text = text.lstrip("# ")  # this solution works only if the heading has spesifically 1-6 # and one singular space. if someone writes a heading with double space or has hashes at the beginning it would not work as intended
+    # hashes_count = len(text) - len(stripped_text) -1 #while the given solution is spesific to what its doing. it stops immidietly when it finds a space.
+    return text_and_hash_count
 
 def helper_strip_code_backtips(text:str) -> str:
     stripped_code = text[len("```\n"):-len("```")] #saves all text except the first 4 characters and the last 3. keeping the newline at the end is important according to boots
     return stripped_code
 
 def helper_strip_quote(text: str) -> str:
-    first_quote_remove = text.lstrip("> ")
-    the_rest = first_quote_remove.replace("> "," ")
-    removed_newlines = the_rest.replace("\n","")
-    return removed_newlines
+    split_text = text.split("\n")
+    quote_text = [] #mostly copied from the solution. minus a valueerror. i need to get better at those.
+    for line in split_text:
+        quote_text.append(line.lstrip(">").strip())
+    return " ".join(quote_text)
+    # first_quote_remove = text.lstrip("> ")
+    # the_rest = first_quote_remove.replace("> "," ")  #this will replace ANY >'s, wether its in the beginning or middle or end. 
+    # removed_newlines = the_rest.replace("\n","")
+    # return removed_newlines
 
 
 def helper_strip_paragraph(text: str) -> str:
@@ -78,12 +92,17 @@ def helper_strip_paragraph(text: str) -> str:
     return paragraph_no_newlines
 
 def helper_unordered_list(text: str) -> list["HTMLNode"]:
-    split_text = text.split("- ")
+    split_text_list = text.split("\n")
     nodes = []
-    for item in split_text:
-        if item == "":
-            continue
-        nodes.append(ParentNode("li", helper_text_to_htmlnode_children(item.replace("\n","")))) # [:-len("\n")] not work. last line does not have newline, but what if i need it to keep the newline..
+    for item in split_text_list: #mostly copied from the solution, as my solution had a massive error.
+        split_text = item[2:]
+        nodes.append(ParentNode("li", helper_text_to_htmlnode_children(split_text)))
+    # split_text = text.split("- ") #this has an error in that if there is - ANYWHERE in the list it will split it. so if i have a text with a - in the middle, it will split there too.
+    # nodes = []
+    # for item in split_text:
+    #     if item == "":
+    #         continue
+    #     nodes.append(ParentNode("li", helper_text_to_htmlnode_children(item.replace("\n","")))) # [:-len("\n")] not work. last line does not have newline, but what if i need it to keep the newline..
     return nodes
 
 def helper_ordered_list(text: str) -> list["HTMLNode"]:
