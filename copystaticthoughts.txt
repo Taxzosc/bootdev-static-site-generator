@@ -1,3 +1,41 @@
 write a recursive function that copies all the contents from a source directory to a destination directory(static to public)
 delete all contents of the destination directory(public). inside the recurse i assume
 then copy all files, and sub directories, nested files etc.. 
+
+why do i need to delete the content in the destination folder? to make sure what we put in it is "clean", which i assume means there is no duplicates or such.
+what should go into the public folder? what does the public folder do?
+i think it stores whatever is going to be on the website?
+
+
+write a recursive function.. 
+i guess it would be something like
+
+
+
+def function(filepath):
+    check if filepath is valid:
+        if not valid raise error
+    if directory is not empty:  #cant have this after the recurse. else it would delete whatever is already copied to it?
+        delete everything
+    #if directory contains no directory: #not needed, how would i check for this without looping over all objects
+        #if directory has files:
+            #copy files to destination
+
+
+what is my return? my "go back" point?
+there doesnt need to be a condition i think. when it hits the bottom of the code i can just return.
+theres no need to return an object since its just copying everything then recursing, but then i cant have the delete everything line at the top. cant have delete>copy>recurse>delete>copy.
+maybe i can check if public is empty.. no that would lead to the same direction. 
+i need to eventually get to the bottom of the directory.
+what if the directory has multiple directories in it.
+
+
+#currentdir = current directory #redundant since the current dir is in the filepath.
+    if len(files in directory) != 1:
+        for item in directory: #loops through all objects in directory, checks if it is a directory or not, if not, copy item to destination
+            if directory:
+                make directory(private/found directory)
+                recurse(path is found directory)
+            if not directory:
+                copy to public/currentdir
+    return
