@@ -198,7 +198,13 @@ from htmlnode import *
 
 # html = parent.to_html()
 # print(repr(html))
-
-
-this = ["meme","notmeme","lol"]
-print(" ".join(this))
+def meme(this = False):
+    if this == True:
+        print("hehehe")
+        return
+    if this == False:
+        print("nicememe")
+    meme(this=True)
+meme()
+# this = ["meme","notmeme","lol"]
+# print(" ".join(this))
