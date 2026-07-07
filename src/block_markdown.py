@@ -117,7 +117,7 @@ def helper_ordered_list(text: str) -> list["HTMLNode"]:
     return nodes
 
 
-def markdown_to_blocks(markdown):
+def markdown_to_blocks(markdown: str) -> list[str]:
     split_markdown = markdown.split("\n\n")
     block_list = []
     for text in split_markdown:
