@@ -3,6 +3,7 @@ from inline_markdown import extract_markdown_images, extract_markdown_links,spli
 from textnode import *
 from block_markdown import *
 from htmlnode import *
+import os
 # testhis = {
 # "href": "https://www.google.com",
 # "target": "_blank",
@@ -208,59 +209,94 @@ from htmlnode import *
 # meme()
 # this = ["meme","notmeme","lol"]
 # print(" ".join(this))
-md = """
-# Tolkien Fan Club
+# md = """
+# # Tolkien Fan Club
 
-![JRR Tolkien sitting](/images/tolkien.png)
+# ![JRR Tolkien sitting](/images/tolkien.png)
 
-Here's the deal, **I like Tolkien**.
+# Here's the deal, **I like Tolkien**.
 
-> "I am in fact a Hobbit in all but size."
->
-> -- J.R.R. Tolkien
+# > "I am in fact a Hobbit in all but size."
+# >
+# > -- J.R.R. Tolkien
 
-## Blog posts
+# ## Blog posts
 
-- [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
-- [Why Tom Bombadil Was a Mistake](/blog/tom)
-- [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+# - [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
+# - [Why Tom Bombadil Was a Mistake](/blog/tom)
+# - [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
 
-## Reasons I like Tolkien
+# ## Reasons I like Tolkien
 
-- You can spend years studying the legendarium and still not understand its depths
-- It can be enjoyed by children and adults alike
-- Disney _didn't ruin it_ (okay, but Amazon might have)
-- It created an entirely new genre of fantasy
+# - You can spend years studying the legendarium and still not understand its depths
+# - It can be enjoyed by children and adults alike
+# - Disney _didn't ruin it_ (okay, but Amazon might have)
+# - It created an entirely new genre of fantasy
 
-## My favorite characters (in order)
+# ## My favorite characters (in order)
 
-1. Gandalf
-2. Bilbo
-3. Sam
-4. Glorfindel
-5. Galadriel
-6. Elrond
-7. Thorin
-8. Sauron
-9. Aragorn
+# 1. Gandalf
+# 2. Bilbo
+# 3. Sam
+# 4. Glorfindel
+# 5. Galadriel
+# 6. Elrond
+# 7. Thorin
+# 8. Sauron
+# 9. Aragorn
 
-Here's what `elflang` looks like (the perfect coding language):
+# Here's what `elflang` looks like (the perfect coding language):
 
-```
-func main(){
-    fmt.Println("Aiya, Ambar!")
-}
-```
+# ```
+# func main(){
+#     fmt.Println("Aiya, Ambar!")
+# }
+# ```
 
-Want to get in touch? [Contact me here](/contact).
+# Want to get in touch? [Contact me here](/contact).
 
-This site was generated with a custom-built [static site generator](https://www.boot.dev/courses/build-static-site-generator-python) from the course on [Boot.dev](https://www.boot.dev).
-"""
+# This site was generated with a custom-built [static site generator](https://www.boot.dev/courses/build-static-site-generator-python) from the course on [Boot.dev](https://www.boot.dev).
+# """
 
-block:list[str] = markdown_to_blocks(md)
-header = ""
-for text in block:
-    if text.startswith("# "):
-        header = text[2:].strip()
-        break
-print(header)
+# block:list[str] = markdown_to_blocks(md)
+# header = ""
+# for text in block:
+#     if text.startswith("# "):
+#         header = text[2:].strip()
+#         break
+# print(header)
+
+# file = "thisfile.md"
+# print(file[-3:])
+
+
+# text = """
+# {{ this }}
+
+# is a 
+
+# {{ test }}
+# """
+
+# new_text = text.replace("{{ this }}", "meme").replace("{{ test }}", "queen")
+# # bng = new_text.replace("{{ test }}", "queen")
+# print(new_text)
+
+# text = os.listdir("./content")
+# print(text)
+
+# item = open("./template.html")
+# text = item.read()
+# item.close()
+# print(type(text))
+# dest = "./public"
+# newfile = os.path.join(dest, "content.html")
+# print(newfile)
+# text = ["this", "is", "meme"]
+# for i in text:
+#     if i == "is":
+#         meme = i
+# print(meme)
+content_path = "./content"
+meme = os.path.join(content_path, "index.md")
+print(meme)
