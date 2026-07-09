@@ -11,15 +11,13 @@ def extract_title(markdown: str) -> str:
 def generate_page(from_path: str | os.PathLike, template_path: str | os.PathLike, dest_path: str | os.PathLike): 
     # what is from_path going to be? is it the directory or is it supposed to be the md file itself? "read the md file at frompath"
     print(f"Generating page from {from_path} to {dest_path}, using {template_path}")
-    md_file = from_path
-    markdown = ""
     # if os.path.isdir(md_file): #this is not needed as from_path should be pointing directly at the markdown file itself.
     #     content_files = os.listdir(md_file)
     #     for file in content_files: #doing this because i assume content can contain other things than the md file
     #         if file[-3:] == ".md":
     #             md_file = os.path.join(md_file,file)
     #             break
-    open_md = open(md_file)
+    open_md = open(from_path)
     markdown = open_md.read()
     open_md.close()
 
@@ -40,3 +38,23 @@ def generate_page(from_path: str | os.PathLike, template_path: str | os.PathLike
     new_file = open(new_file_name, mode='w') #creates and opens for writing
     new_file.write(swapped_title_content)
     new_file.close()
+
+
+
+def generate_pages_recursive(dir_path_content: str | os.PathLike, template_path: str | os.PathLike, dest_dir_path: str | os.PathLike):
+    if len(os.listdir(dir_path_content)) == 0:
+        return
+        # raise ValueError("directory empty")
+    
+    for item in os.listdir(dir_path_content):
+        
+        item_path = os.path.join(dir_path_content,item)
+        destination_item_path = os.path.join(dest_dir_path, item)
+        
+        if os.path.isfile(item) and item[:-3] == ".md":
+            md_destination = os.path.join(dest_dir_path, "index.html")
+            print(f"inside rcursive : using generating page using {item_path}, {template_path}, {md_destination}")
+            generate_page(item_path, template_path, md_destination)
+        if os.path.isdir(item):
+            print(f"recursing down to {item_path}")
+            generate_pages_recursive(item_path, template_path, destination_item_path)

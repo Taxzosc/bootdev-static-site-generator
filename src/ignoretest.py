@@ -299,4 +299,5 @@ import os
 # print(meme)
 content_path = "./content"
 meme = os.path.join(content_path, "index.md")
-print(meme)
+mememe = os.path.join(meme, "blog")
+print(mememe)
