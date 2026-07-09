@@ -74,3 +74,16 @@ what if the directory has multiple directories in it.
 
 i can use os.listdir to get a list containing the names of the entries in the directory given by path(os.listdir(path=))
 path like object is needed. so i need create a path object for it to use.
+
+
+
+
+generate page recursively.
+crawl every entry in the content directory..
+i think this means that for every directory in content. so loop over every directory in content.
+"for each markdown file found, generate a new html file using the same template.html. the generated pages should be written to the public directory in the same directory structure"
+this is just "use generate page" whenever a .md file is found.
+
+if a .md file is found: generate content? yes! due to the os.makedirs in the generate page function, we just need to go down a level until we find a .md file, then
+we use geneerate_page() to create the directories that leads to that file, if they dont exist already.
+so, if a .md is not found: loop over directories, recurse into each directory, repeat until md is found. then generate content to make the directories.
