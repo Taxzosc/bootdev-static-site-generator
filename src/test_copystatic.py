@@ -1,5 +1,5 @@
 import unittest
-from copystatic import extract_title
+from generate_content import extract_title
 
 class test_extract_title(unittest.TestCase):
     def test_first_line_h1(self):

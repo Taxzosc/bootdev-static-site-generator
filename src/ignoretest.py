@@ -4,6 +4,7 @@ from textnode import *
 from block_markdown import *
 from htmlnode import *
 import os
+import sys
 # testhis = {
 # "href": "https://www.google.com",
 # "target": "_blank",
@@ -297,7 +298,9 @@ import os
 #     if i == "is":
 #         meme = i
 # print(meme)
-content_path = "./content"
-meme = os.path.join(content_path, "index.md")
-mememe = os.path.join(meme, "blog")
-print(mememe)
+# content_path = "./content"
+# meme = os.path.join(content_path, "index.md")
+# mememe = os.path.join(meme, "blog")
+# print(mememe)
+
+print(sys.argv[1])
